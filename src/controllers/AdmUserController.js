@@ -1,5 +1,11 @@
 const AdmUser = require("../models/AdmUser");
 
+const jwt = require("jsonwebtoken");
+const { append } = require("express/lib/response");
+const express = require("express");
+const app = express();
+app.use(express.json());
+
 module.exports = {
   async index(req, res) {
     const users = await AdmUser.findAll();
@@ -13,11 +19,20 @@ module.exports = {
       where: { userName },
     });
 
+    const token = jwt.sign(
+      { userId: user.id },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: '1d',
+      }
+    );
+
     if (!user) {
       return res.status(400).send("Cannot find user");
     }
     if (user.password === password) {
-      res.status(200).send("Success");
+      res.json({ auth: true, token });
+      console.log(token);
     } else {
       res.status(400).send("Not Allowed");
     }

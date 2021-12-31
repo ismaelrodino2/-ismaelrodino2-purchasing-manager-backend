@@ -3,21 +3,31 @@ const UserController = require("./controllers/UserController");
 const ProductController = require("./controllers/ProductController");
 const MakeRelation = require("./controllers/MakeRelation");
 const AdmUserController = require("./controllers/AdmUserController");
+const jwt = require("jsonwebtoken");
 
 const routes = express.Router();
 
-routes.get("/users", UserController.index);
-routes.post("/users", UserController.store);
+function verifyJWT(req, res, next) {
+  const token = req.headers["x-access-token"];
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) return res.status(401).end();
 
-routes.get("/products", ProductController.index);
-routes.post("/products", ProductController.store);
+    req.userId = decoded.userId;
+    next();
+  });
+}
 
-routes.post("/makerelation/", MakeRelation.store);
-routes.get("/makerelation/:user_id/:product_id", MakeRelation.index);
+routes.get("/users", verifyJWT, UserController.index);
+routes.post("/users",verifyJWT, UserController.store);
+
+routes.get("/products",verifyJWT, ProductController.index);
+routes.post("/products",verifyJWT, ProductController.store);
+
+routes.post("/makerelation/",verifyJWT, MakeRelation.store);
+routes.get("/makerelation/:user_id/:product_id",verifyJWT, MakeRelation.index);
 
 routes.post("/register", AdmUserController.store);
 routes.post("/login", AdmUserController.logon);
 routes.get("/admusers", AdmUserController.index);
-
 
 module.exports = routes;
