@@ -8,23 +8,24 @@ const jwt = require("jsonwebtoken");
 const routes = express.Router();
 
 function verifyJWT(req, res, next) {
-  const token = req.headers["x-access-token"];
+  const auth = req.headers.authorization;
+  const [, token] = auth.split(" ");
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) return res.status(401).end();
-
     req.userId = decoded.userId;
     next();
   });
 }
 
 routes.get("/users", verifyJWT, UserController.index);
-routes.post("/users",verifyJWT, UserController.store);
+routes.post("/users", UserController.store);
+// routes.post("/users", UserController.delete);
 
-routes.get("/products",verifyJWT, ProductController.index);
-routes.post("/products",verifyJWT, ProductController.store);
+routes.get("/products", verifyJWT, ProductController.index);
+routes.post("/products", verifyJWT, ProductController.store);
 
-routes.post("/makerelation/",verifyJWT, MakeRelation.store);
-routes.get("/makerelation/:user_id/:product_id",verifyJWT, MakeRelation.index);
+routes.post("/makerelation", verifyJWT, MakeRelation.store);
+routes.get("/makerelation", verifyJWT, MakeRelation.index);
 
 routes.post("/register", AdmUserController.store);
 routes.post("/login", AdmUserController.logon);

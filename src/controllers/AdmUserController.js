@@ -32,7 +32,6 @@ module.exports = {
     }
     if (user.password === password) {
       res.json({ auth: true, token });
-      console.log(token);
     } else {
       res.status(400).send("Not Allowed");
     }
