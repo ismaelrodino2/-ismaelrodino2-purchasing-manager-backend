@@ -16,8 +16,6 @@ module.exports = {
   async store(req, res) {
     const { user_id, product_id, qnt } = req.body;
 
-    const { name } = req.body;
-
     const user = await User.findByPk(user_id);
 
     if (!user) {

@@ -13,4 +13,12 @@ module.exports = {
 
     return res.json(user);
   },
+
+  async delete(req, res) {
+    const { name, email } = req.body;
+
+    const user = await User.destroy({ where: { name, email } });
+
+    return res.json(user);
+  },
 };

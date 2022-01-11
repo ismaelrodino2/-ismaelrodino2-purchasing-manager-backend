@@ -13,4 +13,12 @@ module.exports = {
 
     return res.json(product);
   },
+
+  async delete(req, res) {
+    const { name, number, price } = req.body;
+
+    const product = await Product.destroy({ where: { name, number, price } });
+
+    return res.json(product);
+  },
 };

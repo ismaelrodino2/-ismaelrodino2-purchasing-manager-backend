@@ -18,11 +18,12 @@ function verifyJWT(req, res, next) {
 }
 
 routes.get("/users", verifyJWT, UserController.index);
-routes.post("/users", UserController.store);
-// routes.post("/users", UserController.delete);
+routes.post("/users",verifyJWT, UserController.store);
+routes.delete("/users", UserController.delete);
 
 routes.get("/products", verifyJWT, ProductController.index);
 routes.post("/products", verifyJWT, ProductController.store);
+routes.delete("/products", verifyJWT, ProductController.delete);
 
 routes.post("/makerelation", verifyJWT, MakeRelation.store);
 routes.get("/makerelation", verifyJWT, MakeRelation.index);
