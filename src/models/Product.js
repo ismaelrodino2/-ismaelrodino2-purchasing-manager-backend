@@ -7,6 +7,7 @@ class Product extends Model {
         name: DataTypes.STRING,
         number: DataTypes.INTEGER,
         price: DataTypes.REAL,
+        owner: DataTypes.INTEGER,
       },
       {
         sequelize,

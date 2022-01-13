@@ -27,6 +27,7 @@ routes.delete("/products", verifyJWT, ProductController.delete);
 
 routes.post("/makerelation", verifyJWT, MakeRelation.store);
 routes.get("/makerelation", verifyJWT, MakeRelation.index);
+routes.delete("/makerelation", verifyJWT, MakeRelation.delete);
 
 routes.post("/register", AdmUserController.store);
 routes.post("/login", AdmUserController.logon);

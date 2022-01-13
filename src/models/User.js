@@ -6,6 +6,7 @@ class User extends Model {
       {
         name: DataTypes.STRING,
         email: DataTypes.STRING,
+        owner: DataTypes.INTEGER,
       },
       {
         sequelize,
