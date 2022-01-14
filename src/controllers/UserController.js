@@ -5,7 +5,6 @@ module.exports = {
   async index(req, res) {
     const TokenArray = req.headers.authorization.split(" ");
     const auth = jwt.decode(TokenArray[1], process.env.ACCESS_TOKEN_SECRET);
-    console.log(TokenArray[1]);
 
     const users = await User.findAll({
       where: { owner: auth.userId },

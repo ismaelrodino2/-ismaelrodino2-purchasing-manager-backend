@@ -34,7 +34,6 @@ module.exports = {
     const product = await Product.findOne({ where: { id: product_id } });
 
     const atual = product.number - qnt;
-    console.log(product.number);
     if (!product) {
       return res.status(400).json({ error: "Product not found" });
     }
