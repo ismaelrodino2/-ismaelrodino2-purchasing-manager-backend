@@ -31,6 +31,5 @@ routes.delete("/makerelation", verifyJWT, MakeRelation.delete);
 
 routes.post("/register", AdmUserController.store);
 routes.post("/login", AdmUserController.logon);
-routes.get("/admusers", verifyJWT, AdmUserController.index);
 
 module.exports = routes;

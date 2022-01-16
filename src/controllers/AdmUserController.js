@@ -8,10 +8,6 @@ const app = express();
 app.use(express.json());
 
 module.exports = {
-  async index(req, res) {
-    const users = await AdmUser.findAll();
-    return res.json(users);
-  },
 
   async logon(req, res) {
     const { userName, password } = req.body;
