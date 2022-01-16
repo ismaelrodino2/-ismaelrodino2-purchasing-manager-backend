@@ -1,4 +1,3 @@
-1 - add your elephantsql server to config/database.js as in database.example.js;
-2 - add .env as in .env.example with a strong password;
-3 - yarn;
-4 - yarn dev;
+1 - add .env as in .env.example with a strong password and your elephantsql server information;
+2 - yarn;
+3 - yarn dev;

@@ -1,4 +1,5 @@
 const AdmUser = require("../models/AdmUser");
+require("dotenv").config();
 
 const jwt = require("jsonwebtoken");
 const { append } = require("express/lib/response");
